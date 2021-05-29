@@ -51,7 +51,17 @@ body = {
             "analyzer" : {
                 "kuromoji_search_analyzer" : {
                     "type" : "custom",
-                    "tokenizer" : "kuromoji_search_tokenizer"
+                    "tokenizer" : "kuromoji_search_tokenizer",
+                    "char_filter": [
+                        "icu_normalizer"                    
+                    ],
+                    "filter": [
+                        "kuromoji_baseform",
+                        "kuromoji_part_of_speech",
+                        "cjk_width",
+                        "kuromoji_stemmer",
+                        "lowercase"
+                    ]
                 },
                 "kuromoji_normal_analyzer" : {
                     "type" : "custom",

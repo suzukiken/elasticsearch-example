@@ -42,20 +42,22 @@ body = {
                 "kuromoji_search_tokenizer" : {
                     "type" : "kuromoji_tokenizer",
                     "mode": "search"
-                },
-                "kuromoji_normal_tokenizer" : {
-                    "type" : "kuromoji_tokenizer",
-                    "mode": "normal"
                 }
             },
             "analyzer" : {
                 "kuromoji_search_analyzer" : {
                     "type" : "custom",
-                    "tokenizer" : "kuromoji_search_tokenizer"
-                },
-                "kuromoji_normal_analyzer" : {
-                    "type" : "custom",
-                    "tokenizer" : "kuromoji_normal_tokenizer"
+                    "tokenizer" : "kuromoji_search_tokenizer",
+                    "char_filter": [
+                        "icu_normalizer"                    
+                    ],
+                    "filter": [
+                        "kuromoji_baseform",
+                        "kuromoji_part_of_speech",
+                        "cjk_width",
+                        "kuromoji_stemmer",
+                        "lowercase"
+                    ]
                 }
             }
         }
@@ -69,7 +71,7 @@ body = {
                 },
                 "title": {
                     "type": "string",
-                    "analyzer": "kuromoji_normal_analyzer"
+                    "analyzer": "kuromoji_search_analyzer"
                 },
                 "category": {
                     "type": "string",
@@ -77,7 +79,7 @@ body = {
                 },
                 "tags": {
                     "type": "string",
-                    "analyzer": "kuromoji_normal_analyzer"
+                    "analyzer": "kuromoji_search_analyzer"
                 },
                 "date": {
                     "type": "date",
